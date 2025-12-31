@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year Countdown</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #000428, #004e92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.container {
+    text-align: center;
+    animation: fadeIn 2s ease;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+#countdown {
+    font-size: 2em;
+    margin-top: 20px;
+    letter-spacing: 2px;
+}
+
+.glow {
+    text-shadow: 0 0 10px gold, 0 0 20px orange;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+    opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 class="glow">Happy New Year Coming</h1>
+    <p>Countdown to New Year</p>
+
+    <div id="countdown">Loading...</div>
+
+    <div class="footer">
+        © Zombia | Countdown Alert
+    </div>
+</div>
+
+<script>
+const newYear = new Date(new Date().getFullYear() + 1, 0, 1, 0, 0, 0).getTime();
+let alerted = false;
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = newYear - now;
+
+    if (distance <= 0) {
+        document.getElementById("countdown").innerHTML = "🎉 HAPPY NEW YEAR! 🎉";
+
+        if (!alerted) {
+            alert("🎆 HAPPY NEW YEAR! 🎆\nEnjoy your life everyone thank you for this year.");
+            alerted = true;
+        }
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
